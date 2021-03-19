@@ -12,6 +12,7 @@ router.route('/')
     })
 
 router.route('/:id')
+    .get(catController.cat_get_by_id)
     .get((req, res) => {
         console.log('get one cat by id', req.params)
         res.send(`Hello Cat with id ${req.params.id}!`);
