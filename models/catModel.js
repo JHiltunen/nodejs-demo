@@ -1,3 +1,4 @@
+// Model (usually gets data from database, in this case data is hard coded)
 'use strict';
 
 const pool = require('../database/db');
@@ -24,7 +25,14 @@ const getAllCatsSort = async (order) => {
   }
 };
 
+const insertCat = async (cat) => {
+  const [row] = await promisePool.execute('INSERT INTO wop_cat (name, age, weight, owner, filename) VALUES (?, ?, ?, ?, \'foo.jpg\')', [cat.name, cat.age, cat.weight, cat.owner]);
+  console.log('insert row', row);
+  return row.insertId;
+};
+
 module.exports = {
   getAllCats,
   getAllCatsSort,
+  insertCat,
 };

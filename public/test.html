@@ -14,11 +14,15 @@
         <form action="cat" method="POST">
             Name: <input type="text" name="name"><br>
             Age: <input type="number" name="age"><br>
-            <select name="genre" id="genre">
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-                <option value="robot">Robot Cat</option>
-            </select><br>
+            Owner: <select id="owner" name="owner">
+                        <option value="1">John Doe</option>
+                        <option value="2">Jane Doez</option>
+                    </select>
+              <br>
+            Image: <input type="file" name="filename"><br>
+            Weight: <input type="number" name="weight">
+              <br>
+          <br>
             <input type="submit">
         </form>
     </body>
