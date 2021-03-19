@@ -17,7 +17,7 @@ const getAllCats = async () => {
 const getAllCatsSort = async (order) => {
   try {
     // TODO: do the LEFT (or INNER) JOIN to get owner name too.
-    const [rows] = await promisePool.query('SELECT * FROM wop_cat ORDER BY ...');
+    const [rows] = await promisePool.query(`SELECT * FROM wop_cat ORDER BY ${order}`);
     return rows;
   } catch (e) {
     console.error('error', e.message);
