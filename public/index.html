@@ -1,42 +1,62 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Test HTML page</title>
-    </head>
-    <body>
-        <h1>New User form</h1>
-        <p>Link to root of the server</p>
-        <a href="user">List users</a>
-        <br>
-        <a href="user?sort=name">Users sorted by name</a>
+<html>
+<head>
+    <meta charset="utf8">
+    <title>Example</title>
+    <link href="./css/style.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <h1>List of cats</h1>
+    <ul>
+        <!-- js creates list here -->
+    </ul>
+    <hr>
+    <div class="forms">
+        <div class="form-wrapper">
+            <h3>Add user</h3>
+            <form action="http://localhost:3000/user" method="post" class="light-border" id="addUserForm">
+                <input class="light-border" type="text" name="name" pattern=".{3,}" placeholder="Name" required>
+                <input class="light-border" type="email" name="email" placeholder="email" required>
+                <input class="light-border" type="password" name="passwd" pattern="(?=.*[A-Z]).{8,}" placeholder="Password" required>
+                <button class="light-border" type="submit">Save</button>
+            </form>
+        </div>
 
-        <form action="user" method="POST">
-            Name: <input type="text" name="name"><br>
-            Email: <input type="email" name="email"><br>
-            Password: <input type="password" name="password">
-              <br>
-          <br>
-            <input type="submit">
-        </form>
+        <div class="form-wrapper">
+            <h3>Add cat</h3>
+            <form action="http://localhost:3000/cat"
+                  method="post"
+                  class="light-border"
+                  enctype="multipart/form-data"
+                  id="addCatForm">
+                <input class="light-border" type="text" name="name" placeholder="Name" required>
+                <input class="light-border" type="number" name="age" placeholder="Age" required>
+                <input class="light-border" type="number" step="0.1" name="weight" placeholder="Weight" required>
+                <select class="light-border add-owner" name="owner" required>
+                    <option value="">Select owner</option>
+                </select>
+                <input class="light-border" type="file" name="cat" accept="image/*" placeholder="Choose file">
+                <button class="light-border" type="submit">Upload</button>
+            </form>
+        </div>
 
-        <h1>New Cat form</h1>
-        <a href="cat">Get cat</a>
-        <br>
-        <a href="cat?sort=age">Cats sorted by age</a>
-        <form action="cat" method="POST">
-            Name: <input type="text" name="name"><br>
-            Age: <input type="number" name="age"><br>
-            Owner: <select id="owner" name="owner">
-                        <option value="1">John Doe</option>
-                        <option value="2">Jane Doez</option>
-                    </select>
-              <br>
-            Image: <input type="file" name="filename"><br>
-            Weight: <input type="number" name="weight">
-              <br>
-          <br>
-            <input type="submit">
-        </form>
-    </body>
+        <div class="form-wrapper">
+            <h3>Modify cat</h3>
+            <form action="http://localhost:3000/cat" id="modCatForm" class="light-border">
+                <input class="light-border" type="text" name="name" placeholder="Name" required>
+                <input class="light-border" type="number" name="age" placeholder="Age" required>
+                <input class="light-border" type="number" step="0.1" name="weight" placeholder="Weight" required>
+                <select class="light-border add-owner" name="owner" required>
+                    <option value="">Select owner</option>
+                </select>
+                <input type="hidden" name="id">
+                <button class="light-border" type="submit">Save changes</button>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="./js/serialize.js"></script>
+<script src="./js/main.js"></script>
+</body>
 </html>
