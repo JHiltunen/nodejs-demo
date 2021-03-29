@@ -17,7 +17,7 @@ const getAllUsers = async () => {
 const getAllUsersSort = async (order) => {
   try {
     // TODO: do the LEFT (or INNER) JOIN to get owner name too.
-    const [rows] = await promisePool.query(`SELECT user_id, name, email FROM wop_users ORDER BY ${order}`);
+    const [rows] = await promisePool.query(`SELECT user_id, name, email FROM wop_user ORDER BY ${order}`);
     return rows;
   } catch (e) {
     console.error('error', e.message);
