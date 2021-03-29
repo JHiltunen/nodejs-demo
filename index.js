@@ -4,6 +4,7 @@ const express = require('express');
 const app = express();
 const port = 3000;
 const catRouter = require('./routes/catRouter');
+const userRouter = require('./routes/userRouter');
 
 app.use(express.static('public'));
 //app.use(express.json()); // for parsing application/json
@@ -14,6 +15,7 @@ app.get('/', (req, res) => {
 })
 
 app.use('/cat', catRouter);
+app.use('/user', userRouter);
 
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`);
