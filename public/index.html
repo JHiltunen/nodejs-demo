@@ -5,12 +5,25 @@
         <title>Test HTML page</title>
     </head>
     <body>
-        <h1>Demo page</h1>
+        <h1>New User form</h1>
         <p>Link to root of the server</p>
-        <a href="/">Link to root of the server</a><br>
-        <a href="cat">Get cat</a>
-        <a href="cat?sort=age">Cats sorted by age</a>
+        <a href="user">List users</a>
+        <br>
+        <a href="user?sort=name">Users sorted by name</a>
 
+        <form action="user" method="POST">
+            Name: <input type="text" name="name"><br>
+            Email: <input type="email" name="email"><br>
+            Password: <input type="password" name="password">
+              <br>
+          <br>
+            <input type="submit">
+        </form>
+
+        <h1>New Cat form</h1>
+        <a href="cat">Get cat</a>
+        <br>
+        <a href="cat?sort=age">Cats sorted by age</a>
         <form action="cat" method="POST">
             Name: <input type="text" name="name"><br>
             Age: <input type="number" name="age"><br>
