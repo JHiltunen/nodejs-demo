@@ -29,14 +29,25 @@ const cat_get_by_id = (req, res) => {
 const cat_post_new_cat = async (req, res) => {
     console.log('post cat', req.body);
     const cat = req.body;
+    cat.filename = req.file.filename;
     const catid = await catModel.insertCat(cat);
     cat.id = catid;
     //res.send(`post cat: ${req.body.name}`);
     res.json(cat);
-  };  
+};  
+
+const cat_update_cat = async (req, res) => {
+    console.log('update cat', req.body);
+    const cat = req.body;
+    const catid = await catModel.updateCat(cat);
+    cat.id = catid;
+    //res.send(`post cat: ${req.body.name}`);
+    res.json(cat);
+};
 
 module.exports = {
   cat_list_get,
   cat_get_by_id,
   cat_post_new_cat,
+  cat_update_cat,
 };
