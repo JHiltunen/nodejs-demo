@@ -1,4 +1,3 @@
-// Controller
 'use strict';
 const catModel = require('../models/catModel');
 
@@ -22,7 +21,6 @@ const cat_list_get = async (req, res) => {
 
 const cat_get_by_id = (req, res) => {
     console.log('get one cat by id', req.params);
-    //res.send(`Hello Cat with id ${req.params.id}!`);
     res.json(cats.find(cat => cat.id === req.params.id))
 };
 
@@ -32,7 +30,6 @@ const cat_post_new_cat = async (req, res) => {
     cat.filename = req.file.filename;
     const catid = await catModel.insertCat(cat);
     cat.id = catid;
-    //res.send(`post cat: ${req.body.name}`);
     res.json(cat);
 };  
 
