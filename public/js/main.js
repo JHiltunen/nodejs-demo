@@ -5,6 +5,7 @@ const url = 'http://localhost:3000'; // change url when uploading to server
 const addForm = document.querySelector('#addCatForm');
 const modForm = document.querySelector('#modCatForm');
 const ul = document.querySelector('ul');
+const userList = document.querySelector('#user-list');
 const userLists = document.querySelectorAll('.add-owner');
 
 // create cat cards
@@ -77,6 +78,27 @@ const createCatCards = (cats) => {
   });
 };
 
+// create user cards
+const createUserCards = (users) => {
+  // clear ul
+  userList.innerHTML = '';
+  users.forEach((user) => {
+    // create li with DOM methods
+    const p1 = document.createElement('p');
+    p1.innerHTML = `Email: ${user.name}`;
+
+    const p2 = document.createElement('p');
+    p2.innerHTML = `Email: ${user.email}`;
+
+    const li = document.createElement('li');
+    li.classList.add('light-border');
+
+    li.appendChild(p1);
+    li.appendChild(p2);
+    userList.appendChild(li);
+  });
+};
+
 // AJAX call
 const getCat = async () => {
   try {
@@ -112,6 +134,7 @@ const getUsers = async () => {
     const response = await fetch(url + '/user');
     const users = await response.json();
     createUserOptions(users);
+    createUserCards(users);
   }
   catch (e) {
     console.log(e.message);

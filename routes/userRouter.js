@@ -9,10 +9,6 @@ router.route('/')
 
 router.route('/:id')
   .get(userController.user_get_by_id)
-  .put((req, res) => {
-    console.log('put user', req.params);
-    res.send('put user');
-  })
   .delete((req, res) => {
     console.log('delete user', req.params);
     res.send('delete user');

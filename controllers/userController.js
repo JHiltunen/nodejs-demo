@@ -26,7 +26,7 @@ const user_post_new_user = async (req, res) => {
     const user = req.body;
     const userid = await userModel.insertUser(user);
     user.id = userid;
-    res.json(user);
+    res.redirect('/');
 };  
 
 module.exports = {
