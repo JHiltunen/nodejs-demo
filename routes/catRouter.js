@@ -1,32 +1,17 @@
-//'use strict'; module is strict by default
+//'use strict'; module is strict by default 😉
 const express = require('express');
 const router = express.Router();
+const multer = require('multer');
+const upload = multer({dest: './public/uploads/'});
 const catController = require('../controllers/catController');
 
 router.route('/')
-    .get(catController.cat_list_get)
-    .post(catController.cat_post_new_cat)
-
-    .post((req, res) => {
-        console.log('post cat');
-        res.send('post cat')
-    })
+  .get(catController.cat_list_get)
+  .post(upload.single('filename'), catController.cat_post_new_cat)
+  .put(catController.cat_update_cat);
 
 router.route('/:id')
-    .get(catController.cat_get_by_id)
-    .get((req, res) => {
-        console.log('get one cat by id', req.params)
-        res.send(`Hello Cat with id ${req.params.id}!`);
-    })
-
-    .put((req, res) => {
-        console.log('put cat', req.params);
-        res.send('put cat')
-    })
-
-    .delete((req, res) => {
-        console.log('delete cat', req.params);
-        res.send('delete cat')
-    })
+  .get(catController.cat_get_by_id)
+  .delete(catController.cat_delete_cat);
 
 module.exports = router;
