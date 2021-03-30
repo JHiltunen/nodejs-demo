@@ -18,7 +18,7 @@ body {
   }
   
   ul {
-    max-height: 5%;
+    max-height: 400px;
     overflow: scroll;
     margin: 0;
     padding: 0;

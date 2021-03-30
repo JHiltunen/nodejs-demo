@@ -12,10 +12,6 @@ router.route('/')
 
 router.route('/:id')
   .get(catController.cat_get_by_id)
-  .put((req, res) => {
-    console.log('put cat', req.params);
-    res.send('put cat');
-  })
   .delete(catController.cat_delete_cat);
 
 module.exports = router;
