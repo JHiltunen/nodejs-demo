@@ -18,11 +18,13 @@ body {
   }
   
   ul {
+    max-height: 5%;
+    overflow: scroll;
     margin: 0;
     padding: 0;
     list-style-type: none;
     display: flex;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
   }
   
   li {
