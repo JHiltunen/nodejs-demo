@@ -41,8 +41,14 @@ const cat_update_cat = async (req, res) => {
     const cat = req.body;
     const catid = await catModel.updateCat(cat);
     cat.id = catid;
-    //res.send(`post cat: ${req.body.name}`);
     res.json(cat);
+};
+
+const cat_delete_cat = async (req, res) => {
+    console.log('delete cat', req.params.id);
+    const id = req.params.id;
+    const succes = await catModel.deleteCat(id);
+    res.json(succes);
 };
 
 module.exports = {
@@ -50,4 +56,5 @@ module.exports = {
   cat_get_by_id,
   cat_post_new_cat,
   cat_update_cat,
+  cat_delete_cat,
 };

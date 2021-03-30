@@ -16,9 +16,6 @@ router.route('/:id')
     console.log('put cat', req.params);
     res.send('put cat');
   })
-  .delete((req, res) => {
-    console.log('delete cat', req.params);
-    res.send('delete cat');
-  });
+  .delete(catController.cat_delete_cat);
 
 module.exports = router;

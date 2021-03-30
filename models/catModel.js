@@ -37,9 +37,16 @@ const updateCat = async (cat) => {
   return row.insertId;
 };
 
+const deleteCat = async (id) => {
+  const [row] = await promisePool.execute('DELETE FROM wop_cat WHERE cat_id=?', [id]);
+  console.log('update row', row);
+  return row.insertId;
+};
+
 module.exports = {
   getAllCats,
   getAllCatsSort,
   insertCat,
   updateCat,
+  deleteCat,
 };
