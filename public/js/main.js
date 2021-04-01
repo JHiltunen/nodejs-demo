@@ -9,14 +9,15 @@ const userList = document.querySelector('#user-list');
 const userLists = document.querySelectorAll('.add-owner');
 
 // create cat cards
-const createCatCards = (cats) => {
+const createCatCards = async (cats) => {
   // clear ul
   ul.innerHTML = '';
-  cats.forEach((cat) => {
+  for (const cat of cats) {
+    const user = await getUser(cat.owner);
     // create li with DOM methods
     const img = document.createElement('img');
-    img.src = url + '/uploads/' + cat.filename;
-    console.log(url + '/' + cat.filename);
+    img.src = cat.filename;
+    console.log('Filename: ' + cat.filename);
     img.alt = cat.name;
     img.classList.add('resp');
 
@@ -32,7 +33,7 @@ const createCatCards = (cats) => {
     p2.innerHTML = `Weight: ${cat.weight}kg`;
 
     const p3 = document.createElement('p');
-    p3.innerHTML = `Owner: ${cat.owner}`;
+    p3.innerHTML = `Owner: ${user.name}`;
 
     // add selected cat's values to modify form
     const modButton = document.createElement('button');
@@ -75,7 +76,7 @@ const createCatCards = (cats) => {
     li.appendChild(modButton);
     li.appendChild(delButton);
     ul.appendChild(li);
-  });
+  }
 };
 
 // create user cards
@@ -85,7 +86,7 @@ const createUserCards = (users) => {
   users.forEach((user) => {
     // create li with DOM methods
     const p1 = document.createElement('p');
-    p1.innerHTML = `Email: ${user.name}`;
+    p1.innerHTML = `Name: ${user.name}`;
 
     const p2 = document.createElement('p');
     p2.innerHTML = `Email: ${user.email}`;
@@ -141,6 +142,12 @@ const getUsers = async () => {
   }
 };
 getUsers();
+
+const getUser = async (id) => {
+  const response = await fetch(url + '/user/' + id);
+  const user = await response.json();
+  return user;
+};
 
 // submit add cat form
 addForm.addEventListener('submit', async (evt) => {

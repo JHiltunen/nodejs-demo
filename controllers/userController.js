@@ -1,7 +1,7 @@
 // Controller
 'use strict';
 const userModel = require('../models/userModel');
-
+const {validationResult} = require('express-validator');
 const users = userModel.users;
 
 const user_list_get = async (req, res) => {
@@ -16,12 +16,18 @@ const user_list_get = async (req, res) => {
     res.json(users);   
 }
 
-const user_get_by_id = (req, res) => {
-    console.log('get one user by id', req.params);
-    res.json(users.find(user => user.id === req.params.id))
-};
+const user_get_by_id = async (req, res) => {
+  console.log('userController: http get user with path param', req.params);
+  const user = await userModel.getUser(req.params.id);
+  res.json(user);
+}
 
 const user_post_new_user = async (req, res) => {
+    // Finds the validation errors in this request and wraps them in an object with handy functions
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
     console.log('post user', req.body);
     const user = req.body;
     const userid = await userModel.insertUser(user);

@@ -6,7 +6,7 @@ const promisePool = pool.promise();
 const getAllUsers = async () => {
   try {
     // TODO: do the LEFT (or INNER) JOIN to get owner name too.
-    const [rows] = await promisePool.query('SELECT user_id, name, email FROM wop_user');
+    const [rows] = await promisePool.execute('SELECT user_id, name, email FROM wop_user');
     console.log('something back from db?', rows);
     return rows;
   } catch (e) {
@@ -17,10 +17,20 @@ const getAllUsers = async () => {
 const getAllUsersSort = async (order) => {
   try {
     // TODO: do the LEFT (or INNER) JOIN to get owner name too.
-    const [rows] = await promisePool.query(`SELECT user_id, name, email FROM wop_user ORDER BY ${order}`);
+    const [rows] = await promisePool.execute(`SELECT user_id, name, email FROM wop_user ORDER BY ${order}`);
     return rows;
   } catch (e) {
     console.error('error', e.message);
+  }
+};
+
+const getUser = async (id) => {
+  try {
+    console.log('userModel getUser', id);
+    const [rows] = await promisePool.execute('SELECT * FROM wop_user WHERE user_id = ?', [id]);
+    return rows[0];
+  } catch (e) {
+    console.error('userModel:', e.message);
   }
 };
 
@@ -33,5 +43,6 @@ const insertUser = async (user) => {
 module.exports = {
   getAllUsers,
   getAllUsersSort,
+  getUser,
   insertUser,
 };
