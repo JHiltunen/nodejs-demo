@@ -40,6 +40,10 @@ const cat_post_new_cat = async (req, res) => {
 };  
 
 const cat_update_cat = async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
     console.log('update cat', req.body);
     const cat = req.body;
     const catid = await catModel.updateCat(cat);

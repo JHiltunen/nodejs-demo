@@ -7,9 +7,7 @@ const { body } = require('express-validator');
 
 // Tests if file type is jpeg, png or gif
 const fileFilter = (req, file, cb) => {
-  if(file.mimetype === 'image/jpeg' ||
-      file.mimetype === 'image/png' ||
-      file.mimetype === 'image/gif'){
+  if(file.mimetype === 'image/jpeg' || file.mimetype === 'image/png' || file.mimetype === 'image/gif'){
     cb(null, true);
   } else {
     cb(null, false);
@@ -24,6 +22,7 @@ const testFile = (req, res, next) => {
   }
 }
 
+// define folder to destination to upload pictures
 const upload = multer({ dest: 'uploads/', fileFilter });
 
 router.route('/')
@@ -32,14 +31,14 @@ router.route('/')
     upload.single('filename'), 
     testFile,
     body('name').isLength({min: 1}).escape().blacklist(';'),
-    body('age').isLength({min: 1}).isNumeric(),
-    body('weight').isLength({min: 1}).isNumeric(),
+    body('age').isLength({min: 1}).isNumeric().isInt({min: 0}),
+    body('weight').isLength({min: 1}).isNumeric().isInt({min: 0}),
     body('owner').isLength({min: 1}).isNumeric(),
     catController.cat_post_new_cat)
   .put(
-    body('name').isLength({min: 1}),
-    body('age').isLength({min: 1}).isNumeric(),
-    body('weight').isLength({min: 1}).isNumeric(),
+    body('name').isLength({min: 1}).escape().blacklist(';'),
+    body('age').isLength({min: 1}).isNumeric().isInt({min: 0}),
+    body('weight').isLength({min: 1}).isNumeric().isInt({min: 0}),
     body('owner').isLength({min: 1}).isNumeric(),
     catController.cat_update_cat);
 
