@@ -30,13 +30,13 @@ router.route('/')
   .post(
     upload.single('filename'), 
     testFile,
-    body('name').isLength({min: 1}).escape().blacklist(';'),
+    body('name').isLength({min: 1}).trim().escape().blacklist(';'),
     body('age').isLength({min: 1}).isNumeric().isInt({min: 0}),
     body('weight').isLength({min: 1}).isNumeric().isInt({min: 0}),
     body('owner').isLength({min: 1}).isNumeric(),
     catController.cat_post_new_cat)
   .put(
-    body('name').isLength({min: 1}).escape().blacklist(';'),
+    body('name').isLength({min: 1}).trim().escape().blacklist(';'),
     body('age').isLength({min: 1}).isNumeric().isInt({min: 0}),
     body('weight').isLength({min: 1}).isNumeric().isInt({min: 0}),
     body('owner').isLength({min: 1}).isNumeric(),
