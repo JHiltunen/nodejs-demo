@@ -11,7 +11,7 @@ const port = process.env.HTTP_PORT || 3000;
 
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 if (process.env.NODE_ENV === 'production') {
-  require('./production')(app, process.env.PORT);
+  require('./utils/production')(app, process.env.PORT);
 } else {
   require('./utils/localhost')(app, process.env.HTTPS_PORT || 8000, port);
 }
