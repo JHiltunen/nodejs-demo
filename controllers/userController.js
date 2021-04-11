@@ -22,21 +22,7 @@ const user_get_by_id = async (req, res) => {
   res.json(user);
 }
 
-const user_post_new_user = async (req, res) => {
-    // Finds the validation errors in this request and wraps them in an object with handy functions
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    }
-    console.log('post user', req.body);
-    const user = req.body;
-    const userid = await userModel.insertUser(user);
-    user.id = userid;
-    res.redirect('/');
-};  
-
 module.exports = {
   user_list_get,
   user_get_by_id,
-  user_post_new_user,
 };

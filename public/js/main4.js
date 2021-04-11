@@ -1,5 +1,5 @@
 'use strict';
-const url = 'http://localhost:3000'; // change url when uploading to server
+const url = 'https://localhost:8000'; // change url when uploading to server
 
 // select existing html elements
 const loginWrapper = document.querySelector('#login-wrapper');
@@ -249,6 +249,7 @@ addUserForm.addEventListener('submit', async (evt) => {
   loginWrapper.style.display = 'none';
   logOut.style.display = 'block';
   main.style.display = 'block';
+  userInfo.innerHTML = `Hello ${json.user.name}`;
   getCat();
   getUsers();
 });

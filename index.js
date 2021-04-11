@@ -23,8 +23,8 @@ app.get('/', (req, res) => {
 
 app.use(cors());
 
-app.use(express.urlencoded({extended: true}));
-app.use(express.json());
+app.use(express.json()); // for parsing application/json
+app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
 app.use(express.static('public'));
 app.use(express.static('uploads'));
