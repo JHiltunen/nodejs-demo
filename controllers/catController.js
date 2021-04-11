@@ -1,6 +1,7 @@
 'use strict';
 const catModel = require('../models/catModel');
 const {validationResult} = require('express-validator');
+const resize = require('../utils/resize');
 
 const cats = catModel.cats;
 
@@ -32,11 +33,24 @@ const cat_post_new_cat = async (req, res) => {
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
     }
+
+    // create thumbnail
+    await resize.makeThumbnail(
+        req.file.path,
+        'thumbnails/' + req.file.filename,
+        {width: 160, height: 160},
+    );
+
+    const params = [
+        req.body.name,
+        req.body.age,
+        req.body.weight,
+        req.body.owner,
+        req.file.filename,
+    ];
     
-    console.log('post cat', req.body, req.file);
-    const id = await catModel.insertCat(req);
-    const cat = await catModel.getCat(id);
-    res.send(cat);
+    const response = await catModel.insertCat(params);
+    res.json(response);
 };  
 
 const cat_update_cat = async (req, res) => {

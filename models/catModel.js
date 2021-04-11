@@ -2,6 +2,7 @@
 'use strict';
 
 const pool = require('../database/db');
+const { param } = require('../routes/catRouter');
 const promisePool = pool.promise();
 
 const getAllCats = async () => {
@@ -36,10 +37,9 @@ const getCat = async (id) => {
   }
 };
 
-const insertCat = async (req) => {
+const insertCat = async (params) => {
   try {
-    const [rows] = await promisePool.execute('INSERT INTO wop_cat (name, age, weight, owner, filename) VALUES (?, ?, ?, ?, ?);',
-        [req.body.name, req.body.age, req.body.weight, req.body.owner, req.file.filename]);
+    const [rows] = await promisePool.execute('INSERT INTO wop_cat (name, age, weight, owner, filename) VALUES (?, ?, ?, ?, ?);', params);
     console.log('catModel insert:', rows);
     return rows.insertId;
   } catch (e) {
