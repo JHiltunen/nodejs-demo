@@ -2,6 +2,7 @@
 const catModel = require('../models/catModel');
 const {validationResult} = require('express-validator');
 const resize = require('../utils/resize');
+const imageMeta = require('../utils/imageMeta');
 
 const cats = catModel.cats;
 
@@ -41,12 +42,18 @@ const cat_post_new_cat = async (req, res) => {
         {width: 160, height: 160},
     );
 
+    // get coordinates
+    const coords = await imageMeta.getCoordinates(req.file.path);
+    console.log('coords', coords);
+
+    // add to db
     const params = [
         req.body.name,
         req.body.age,
         req.body.weight,
         req.body.owner,
         req.file.filename,
+        coords,
     ];
     
     const response = await catModel.insertCat(params);
