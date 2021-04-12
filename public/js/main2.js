@@ -5,19 +5,16 @@ const url = 'https://localhost:8000'; // change url when uploading to server
 const addForm = document.querySelector('#addCatForm');
 const modForm = document.querySelector('#modCatForm');
 const ul = document.querySelector('ul');
-const userList = document.querySelector('#user-list');
 const userLists = document.querySelectorAll('.add-owner');
 
 // create cat cards
-const createCatCards = async (cats) => {
+const createCatCards = (cats) => {
   // clear ul
   ul.innerHTML = '';
-  for (const cat of cats) {
-    const user = await getUser(cat.owner);
+  cats.forEach((cat) => {
     // create li with DOM methods
     const img = document.createElement('img');
-    img.src = cat.filename;
-    console.log('Filename: ' + cat.filename);
+    img.src = url + '/' + cat.filename;
     img.alt = cat.name;
     img.classList.add('resp');
 
@@ -33,7 +30,7 @@ const createCatCards = async (cats) => {
     p2.innerHTML = `Weight: ${cat.weight}kg`;
 
     const p3 = document.createElement('p');
-    p3.innerHTML = `Owner: ${user.name}`;
+    p3.innerHTML = `Owner: ${cat.ownername}`;
 
     // add selected cat's values to modify form
     const modButton = document.createElement('button');
@@ -76,27 +73,6 @@ const createCatCards = async (cats) => {
     li.appendChild(modButton);
     li.appendChild(delButton);
     ul.appendChild(li);
-  }
-};
-
-// create user cards
-const createUserCards = (users) => {
-  // clear ul
-  userList.innerHTML = '';
-  users.forEach((user) => {
-    // create li with DOM methods
-    const p1 = document.createElement('p');
-    p1.innerHTML = `Name: ${user.name}`;
-
-    const p2 = document.createElement('p');
-    p2.innerHTML = `Email: ${user.email}`;
-
-    const li = document.createElement('li');
-    li.classList.add('light-border');
-
-    li.appendChild(p1);
-    li.appendChild(p2);
-    userList.appendChild(li);
   });
 };
 
@@ -135,19 +111,12 @@ const getUsers = async () => {
     const response = await fetch(url + '/user');
     const users = await response.json();
     createUserOptions(users);
-    createUserCards(users);
   }
   catch (e) {
     console.log(e.message);
   }
 };
 getUsers();
-
-const getUser = async (id) => {
-  const response = await fetch(url + '/user/' + id);
-  const user = await response.json();
-  return user;
-};
 
 // submit add cat form
 addForm.addEventListener('submit', async (evt) => {

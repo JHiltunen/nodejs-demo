@@ -40,6 +40,12 @@ const insertUser = async (user) => {
   return row.insertId;
 };
 
+const updateUser = async (user) => {
+  const [row] = await promisePool.execute('UPDATE wop_user (name, email) VALUES (?, ?)', [user.name, user.username]);
+  console.log('insert row', row);
+  return row.insertId;
+};
+
 const getUserLogin = async (params) => {
   try {
     console.log(params);
@@ -57,5 +63,6 @@ module.exports = {
   getAllUsersSort,
   getUser,
   insertUser,
+  updateUser,
   getUserLogin,
 };

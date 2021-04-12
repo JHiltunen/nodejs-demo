@@ -194,6 +194,31 @@ loginForm.addEventListener('submit', async (evt) => {
   }
 });
 
+// logout
+logOut.addEventListener('click', async (evt) => {
+  evt.preventDefault();
+  try {
+    const options = {
+      headers: {
+        'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+      },
+    };
+    const response = await fetch(url + '/auth/logout', options);
+    const json = await response.json();
+    console.log(json);
+    // remove token
+    sessionStorage.removeItem('token');
+    alert('You have logged out');
+    // show/hide forms + cats
+    loginWrapper.style.display = 'flex';
+    logOut.style.display = 'none';
+    main.style.display = 'none';
+  }
+  catch (e) {
+    console.log(e.message);
+  }
+});
+
 // check if token exists and hide login form, show logout button, get cats and users
 if (sessionStorage.getItem('token')) {
   loginWrapper.style.display = 'none';
