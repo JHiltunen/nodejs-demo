@@ -8,7 +8,7 @@ const promisePool = pool.promise();
 const getAllCats = async () => {
   try {
     // TODO: do the LEFT (or INNER) JOIN to get owner name too.
-    const [rows] = await promisePool.execute('SELECT * FROM wop_cat');
+    const [rows] = await promisePool.execute('SELECT wop_cat.*, wop_user.name AS ownername FROM wop_cat INNER JOIN wop_user ON owner = wop_user.user_id');
     console.log('something back from db?', rows);
     return rows;
   } catch (e) {
@@ -19,7 +19,7 @@ const getAllCats = async () => {
 const getAllCatsSort = async (order) => {
   try {
     // TODO: do the LEFT (or INNER) JOIN to get owner name too.
-    const [rows] = await promisePool.execute(`SELECT * FROM wop_cat ORDER BY ${order}`);
+    const [rows] = await promisePool.execute(`SELECT wop_cat.*, wop_user.name AS ownername FROM wop_cat INNER JOIN wop_user ON owner = wop_user.user_id ORDER BY ${order}`);
     return rows;
   } catch (e) {
     console.error('error', e.message);
@@ -30,7 +30,8 @@ const getCat = async (id) => {
   try {
     // TODO: do the LEFT (or INNER) JOIN to get owner name too.
     console.log('catModel getCat', id);
-    const [rows] = await promisePool.execute('SELECT * FROM wop_cat WHERE cat_id = ?', [id]);
+    
+    const [rows] = await promisePool.execute('SELECT wop_cat.*, wop_user.name AS ownername FROM wop_cat INNER JOIN wop_user ON owner = wop_user.user_id WHERE cat_id = ?', [id]);
     return rows[0];
   } catch (e) {
     console.error('catModel:', e.message);

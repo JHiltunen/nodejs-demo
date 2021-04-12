@@ -54,6 +54,8 @@ const createCatCards = (cats) => {
 
     const p3 = document.createElement('p');
     p3.innerHTML = `Owner: ${cat.ownername}`;
+    console.log("CAT: " + Object.keys(cat));
+    console.log("CAT: " + Object.values(cat));
 
     // add selected cat's values to modify form
     const modButton = document.createElement('button');
