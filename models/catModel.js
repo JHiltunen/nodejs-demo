@@ -2,7 +2,6 @@
 'use strict';
 
 const pool = require('../database/db');
-const { param } = require('../routes/catRouter');
 const promisePool = pool.promise();
 
 const getAllCats = async () => {
